@@ -1,18 +1,29 @@
 const express = require('express');
 const mongoose = require('mongoose');
-import * as dotenv from 'dotenv'
-import bodyParser from "body-parser";
-import cors from 'cors';
-import * as userRouter from "./src/routes/user.router";
-
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const userRouter = require('./src/routes/user.router');
 dotenv.config();
 
 // CONSTANTS
 const { PORT, } = process.env
 const app = express();
 const port = PORT || 3000;
-
+const uri = "mongodb+srv://layenull:AXuVDFHKeL3ou7TN@cluster0.pprdbyb.mongodb.net/?retryWrites=true&w=majority";
 // setup db connection
+mongoose
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
+
 
 // app setup
 app.use(bodyParser.json());
