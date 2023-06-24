@@ -1,10 +1,10 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-module.export = class UserService {
 
+module.exports = {
   // creates a user in the database
-  async registerUser(req, res) {
+  registerUser: async(req, res) => {
     try {
       const { first_name, last_name, matriculation_no, password, email, user_type, current_level, faculty_id, department_id, programme_id } = req.body;
 
@@ -42,9 +42,9 @@ module.export = class UserService {
     } catch (error) {
       res.status(500).json({ message: 'An error occurred' });
     }
-  }
+  },
 
-  async loginUser(req, res) {
+  loginUser: async (req, res) => {
     try {
       const { matriculation_no, password } = req.body;
 
@@ -69,5 +69,5 @@ module.export = class UserService {
       res.status(500).json({ message: 'An error occurred' });
     }
     // throw new Error('Not implemented');
-  }
+  },
 }
